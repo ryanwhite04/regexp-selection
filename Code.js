@@ -9,7 +9,7 @@ function onOpen() {
 /**
  * Find all matches of target text in current document, and builds range.
  *
- * @param {String} target - (Optional) The text or regex to search for.
+ * @param {String} target - (Optional) The text or regex to search for. 
  *                           See Body.findText() for details.
  */
 function build(target) {
@@ -48,8 +48,9 @@ function selectMarkdown() {
   }
   
   return select([
+    "\{[^\}]+\}", // Markdown Extra Attributes
+    "\<[^\>]+\>", // HTML Elements
+    "\(https?:\/\/[^)]+\)", // External Links
     "\W+",
-    "\(https?:\/\/[^)]+\)",
-    "\<[^\>]+\>",
   ].map(build).reduce(append, DocumentApp.getActiveDocument().newRange()));
 }
